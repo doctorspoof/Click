@@ -19,3 +19,16 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+# Ignore meshes
+*.fbx
+
+# Ignore sounds
+*.wav
+*.mp3
+
+# Ignore textures
+*.png
+*.jpg
+*.psd
+*.tga
