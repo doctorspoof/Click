@@ -64,7 +64,6 @@
             		float PulseColour = clamp(1.0 - DistanceBetweenImpactAndPulse, 0.0, 1.0);
             		
             		OutputCol = float4(PulseColour, PulseColour, PulseColour, 1.0);
-            		//OutputCol = float4(1.0, 1.0, 1.0, 1.0);
             	}
             	
                 //return tex2D(_MainTex, i.texcoord0.xy);
