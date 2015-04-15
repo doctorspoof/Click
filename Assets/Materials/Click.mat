@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: lambert1
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Click
+  m_Shader: {fileID: 4800000, guid: 2cf961cf9506da34285c2319d64ee687, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -138,8 +138,28 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .5, g: .5, b: .5, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _BaseColor
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _WaveColor
+        second: {r: .235294104, g: .235294104, b: .235294104, a: 0}
+      data:
+        first:
+          name: _WaveParams
+        second: {r: 1, g: 1, b: 10, a: 10}
+      data:
+        first:
+          name: _WaveVector
+        second: {r: -35.2283554, g: 3.04600024, b: -2.92438626, a: 0}
+      data:
+        first:
+          name: _AddColor
+        second: {r: 0, g: 0, b: 0, a: 0}

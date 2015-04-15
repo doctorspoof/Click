@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SobelMat
-  m_Shader: {fileID: 4800000, guid: 7b314d86972a94245a0cbd70fcd5a715, type: 3}
+  m_Shader: {fileID: 4800000, guid: f5971e3a2ab3ed649859305b93a743ef, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -130,6 +130,18 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _FreiChen_Intensity
+        second: 1
+      data:
+        first:
+          name: _SobelIntensity
+        second: 10
+      data:
+        first:
+          name: _Intensity
+        second: 1
     m_Colors:
       data:
         first:
