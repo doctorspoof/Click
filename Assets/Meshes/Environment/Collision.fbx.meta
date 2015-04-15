@@ -1,82 +1,107 @@
 fileFormatVersion: 2
-guid: 5a4fa740a3cced04ab37da634c7a3cb1
-timeCreated: 1429110213
+guid: 1e4c44293457ea74d9b3a4695eca343f
+timeCreated: 1429103572
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCone7
-    100004: pCone8
-    100006: pCube10
-    100008: pCube11
-    100010: pCube4
-    100012: pCube5
-    100014: pCube6
-    100016: pCube7
-    100018: pCube8
-    100020: pCube9
-    100022: Puzzle_Key
-    100024: Sphere
-    100026: Sphere1
-    100028: Sphere2
+    100002: pCone1
+    100004: pCone2
+    100006: pCone3
+    100008: pCone4
+    100010: pCone5
+    100012: pCone6
+    100014: pCone7
+    100016: pCube1
+    100018: pCube2
+    100020: pCube3
+    100022: pCube4
+    100024: pSphere1
+    100026: pSphere2
+    100028: pSphere3
+    100030: pSphere4
+    100032: pSphere5
+    100034: pSphere6
+    100036: pSphere7
+    100038: pSphere8
     400000: //RootNode
-    400002: pCone7
-    400004: pCone8
-    400006: pCube10
-    400008: pCube11
-    400010: pCube4
-    400012: pCube5
-    400014: pCube6
-    400016: pCube7
-    400018: pCube8
-    400020: pCube9
-    400022: Puzzle_Key
-    400024: Sphere
-    400026: Sphere1
-    400028: Sphere2
-    2300000: pCone7
-    2300002: pCone8
-    2300004: pCube10
-    2300006: pCube11
-    2300008: pCube4
-    2300010: pCube5
-    2300012: pCube6
-    2300014: pCube7
-    2300016: pCube8
-    2300018: pCube9
-    2300020: Puzzle_Key
-    2300022: Sphere
-    2300024: Sphere1
-    2300026: Sphere2
-    3300000: pCone7
-    3300002: pCone8
-    3300004: pCube10
-    3300006: pCube11
-    3300008: pCube4
-    3300010: pCube5
-    3300012: pCube6
-    3300014: pCube7
-    3300016: pCube8
-    3300018: pCube9
-    3300020: Puzzle_Key
-    3300022: Sphere
-    3300024: Sphere1
-    3300026: Sphere2
+    400002: pCone1
+    400004: pCone2
+    400006: pCone3
+    400008: pCone4
+    400010: pCone5
+    400012: pCone6
+    400014: pCone7
+    400016: pCube1
+    400018: pCube2
+    400020: pCube3
+    400022: pCube4
+    400024: pSphere1
+    400026: pSphere2
+    400028: pSphere3
+    400030: pSphere4
+    400032: pSphere5
+    400034: pSphere6
+    400036: pSphere7
+    400038: pSphere8
+    2300000: pCone1
+    2300002: pCone2
+    2300004: pCone3
+    2300006: pCone4
+    2300008: pCone5
+    2300010: pCone6
+    2300012: pCone7
+    2300014: pCube1
+    2300016: pCube2
+    2300018: pCube3
+    2300020: pCube4
+    2300022: pSphere1
+    2300024: pSphere2
+    2300026: pSphere3
+    2300028: pSphere4
+    2300030: pSphere5
+    2300032: pSphere6
+    2300034: pSphere7
+    2300036: pSphere8
+    3300000: pCone1
+    3300002: pCone2
+    3300004: pCone3
+    3300006: pCone4
+    3300008: pCone5
+    3300010: pCone6
+    3300012: pCone7
+    3300014: pCube1
+    3300016: pCube2
+    3300018: pCube3
+    3300020: pCube4
+    3300022: pSphere1
+    3300024: pSphere2
+    3300026: pSphere3
+    3300028: pSphere4
+    3300030: pSphere5
+    3300032: pSphere6
+    3300034: pSphere7
+    3300036: pSphere8
     4300000: pCone7
     4300002: pCube4
-    4300004: Puzzle_Key
-    4300006: pCube5
-    4300008: pCube6
-    4300010: Sphere
-    4300012: Sphere1
-    4300014: pCube7
-    4300016: pCube8
-    4300018: pCone8
-    4300020: pCube9
-    4300022: pCube10
-    4300024: pCube11
-    4300026: Sphere2
+    4300004: pCube3
+    4300006: pSphere8
+    4300008: pSphere7
+    4300010: pSphere6
+    4300012: pSphere5
+    4300014: pCone6
+    4300016: pSphere4
+    4300018: pCone5
+    4300020: pCone4
+    4300022: pSphere3
+    4300024: pCube2
+    4300026: pSphere2
+    4300028: pCone3
+    4300030: pCone2
+    4300032: pCone1
+    4300034: pSphere1
+    4300036: pCube1
     9500000: //RootNode
   materials:
     importMaterials: 1

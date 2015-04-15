@@ -1,72 +1,17 @@
 fileFormatVersion: 2
-guid: fe0e9d64b882eb24bab497a531f4644d
+guid: b074d4e9749ffdc4a983783e180b6b20
 timeCreated: 1429103573
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Bed
-    100002: Bed1
-    100004: Bed10
-    100006: Bed11
-    100008: Bed12
-    100010: Bed13
-    100012: Bed14
-    100014: Bed15
-    100016: Bed16
-    100018: Bed2
-    100020: Bed3
-    100022: Bed4
-    100024: //RootNode
-    400000: Bed
-    400002: Bed1
-    400004: Bed10
-    400006: Bed11
-    400008: Bed12
-    400010: Bed13
-    400012: Bed14
-    400014: Bed15
-    400016: Bed16
-    400018: Bed2
-    400020: Bed3
-    400022: Bed4
-    400024: //RootNode
-    2300000: Bed
-    2300002: Bed1
-    2300004: Bed10
-    2300006: Bed11
-    2300008: Bed12
-    2300010: Bed13
-    2300012: Bed14
-    2300014: Bed15
-    2300016: Bed16
-    2300018: Bed2
-    2300020: Bed3
-    2300022: Bed4
-    3300000: Bed
-    3300002: Bed1
-    3300004: Bed10
-    3300006: Bed11
-    3300008: Bed12
-    3300010: Bed13
-    3300012: Bed14
-    3300014: Bed15
-    3300016: Bed16
-    3300018: Bed2
-    3300020: Bed3
-    3300022: Bed4
-    4300000: Bed
-    4300002: Bed1
-    4300004: Bed2
-    4300006: Bed3
-    4300008: Bed4
-    4300010: Bed10
-    4300012: Bed11
-    4300014: Bed12
-    4300016: Bed13
-    4300018: Bed14
-    4300020: Bed15
-    4300022: Bed16
+    100000: Door_Left
+    100002: //RootNode
+    400000: Door_Left
+    400002: //RootNode
+    2300000: Door_Left
+    3300000: Door_Left
+    4300000: Door_Left
     9500000: //RootNode
   materials:
     importMaterials: 1

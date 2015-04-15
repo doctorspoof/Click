@@ -48,8 +48,7 @@ public class AINavigation : MonoBehaviour
 	public void SetEnemySearchingParams(Vector3 soundPosition, float soundRadius, int targetLayer)
 	{
 		levelOfAttraction = 1 - ((Vector3.Distance(transform.position, soundPosition)) / soundRadius);
-		//search radius based on the sound 'volume' devided by 4 for increased accuracy
-		searchRadius = (soundRadius - (soundRadius / Vector3.Distance(transform.position, soundPosition))) * 0.25f;
+		searchRadius = soundRadius - (soundRadius / Vector3.Distance(transform.position, soundPosition));
 		
 		CheckIfCanSeeSoundSource(soundPosition, soundRadius, targetLayer);
 		
@@ -81,7 +80,7 @@ public class AINavigation : MonoBehaviour
 		}
 		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f)
 		{
-			agent.speed = 2.0f;
+			agent.speed = 4.0f;
 		}
 		//Due to the way Physics.OverlapSphere works sometimes the distance from enemy to sound source can be < 0, use for very, very, very faint sound detection by enemy
 		else if(levelOfAttraction <= 0.0f)
@@ -99,12 +98,12 @@ public class AINavigation : MonoBehaviour
 		
 		if(Physics.Raycast(searchRay, out searchRayHitResult, seachRadius, 1 << targetLayer))
 		{
-			print("Found you, Mofo!!!");
+			//print("Found you, Mofo!!!");
 			return true;
 		}
 		else
 		{
-			print("Where are you!?!");
+			//print("Where are you!?!");
 			return false;
 		}		
 	}
