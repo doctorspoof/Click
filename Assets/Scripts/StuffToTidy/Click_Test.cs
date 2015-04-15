@@ -5,8 +5,7 @@ public class Click_Test : MonoBehaviour
 {
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
-			GetComponent<Click_Clicker>().Toggle();
+		
 	}
 	
 	void OnGUI()

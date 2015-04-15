@@ -60,7 +60,7 @@ public class Click_Behavior : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		GetComponent<Camera>().SetReplacementShader(shader, null);
+		//GetComponent<Camera>().SetReplacementShader(shader, null);
 		Update();
 	}
 	
