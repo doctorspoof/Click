@@ -21,14 +21,14 @@
 sysinfo.txt
 
 # Ignore meshes
-#*.fbx
+*.fbx
 
 # Ignore sounds
-#*.wav
-#*.mp3
+*.wav
+*.mp3
 
 # Ignore textures
-#*.png
-#*.jpg
-#*.psd
-#*.tga
+*.png
+*.jpg
+*.psd
+*.tga
