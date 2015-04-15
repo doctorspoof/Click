@@ -30,14 +30,10 @@
 			
 			//float w = dot(IN.worldPos, _WaveVector);
 			float w = length(IN.worldPos - _WaveVector);
-			float t = _Time.y;
+
 			
-			if( t < 5 ){
-				w -= t * _WaveParams.w;
-			}
-			else{
-				w -= 0;//t * _WaveParams.w;
-			}
+			w -= _Time.y * _WaveParams.w;
+
 			w /= _WaveParams.z;
 			w = w - floor(w);
 			
