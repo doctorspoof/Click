@@ -1,15 +1,18 @@
 fileFormatVersion: 2
-guid: be622b45cbfbf8244a4dd60a61d2efc3
-timeCreated: 1429110213
+guid: 7036e174ab3a3a247be7e0b49ada0e1c
+timeCreated: 1429103572
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Room_Model
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
+    400002: Room_Model
+    2300000: Room_Model
+    3300000: Room_Model
     4300000: Room_Model
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
