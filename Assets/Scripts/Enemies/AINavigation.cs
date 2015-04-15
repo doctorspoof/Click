@@ -98,12 +98,12 @@ public class AINavigation : MonoBehaviour
 		
 		if(Physics.Raycast(searchRay, out searchRayHitResult, seachRadius, 1 << targetLayer))
 		{
-			print("Found you, Mofo!!!");
+			//print("Found you, Mofo!!!");
 			return true;
 		}
 		else
 		{
-			print("Where are you!?!");
+			//print("Where are you!?!");
 			return false;
 		}		
 	}
