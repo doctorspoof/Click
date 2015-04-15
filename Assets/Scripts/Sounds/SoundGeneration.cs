@@ -5,11 +5,17 @@ public class SoundGeneration : MonoBehaviour
 {
 	//[HideInInspector]
 	private AudioSource audioComponent;
+	float initialCollisionTimer;
 	
 	// Use this for initialization
 	void Awake ()
 	{
 		audioComponent = GetComponent<AudioSource>();
+	}
+
+	void Start()
+	{
+		initialCollisionTimer = Time.realtimeSinceStartup + 1.0f;
 	}
 	
 	// Update is called once per frame
@@ -35,11 +41,14 @@ public class SoundGeneration : MonoBehaviour
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		if(collision.contacts.Length > 0)
+		if (initialCollisionTimer < Time.realtimeSinceStartup)
 		{
-			//soundPosition = collision.contacts[0].point;
-			audioComponent.Play();
-			SetTargetForEnemiesInRadius(transform.position, GetComponent<AudioSource>().maxDistance);
+			if (collision.contacts.Length > 0)
+			{
+				//soundPosition = collision.contacts[0].point;
+				audioComponent.Play ();
+				SetTargetForEnemiesInRadius (transform.position, GetComponent<AudioSource>().maxDistance);
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9e79b0be80ef9be4aa043ca3e9644026
-timeCreated: 1429103572
+guid: 967a40e42a1d1314da85f5b4b4571e28
+timeCreated: 1429111138
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -8,30 +8,20 @@ ModelImporter:
     100000: Bed_Table
     100002: Bed_Table1
     100004: Bed_Table2
-    100006: Bed_Table3
-    100008: Bed_Table4
-    100010: //RootNode
+    100006: //RootNode
     400000: Bed_Table
     400002: Bed_Table1
     400004: Bed_Table2
-    400006: Bed_Table3
-    400008: Bed_Table4
-    400010: //RootNode
+    400006: //RootNode
     2300000: Bed_Table
     2300002: Bed_Table1
     2300004: Bed_Table2
-    2300006: Bed_Table3
-    2300008: Bed_Table4
     3300000: Bed_Table
     3300002: Bed_Table1
     3300004: Bed_Table2
-    3300006: Bed_Table3
-    3300008: Bed_Table4
     4300000: Bed_Table
     4300002: Bed_Table1
     4300004: Bed_Table2
-    4300006: Bed_Table3
-    4300008: Bed_Table4
     9500000: //RootNode
   materials:
     importMaterials: 1
