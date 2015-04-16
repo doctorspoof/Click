@@ -8,13 +8,15 @@ public class AINavigation : MonoBehaviour
 	public Vector3 target;
 	NavMeshAgent agent;
 	AudioSource sound;
-	float levelOfAttraction;
+	public float levelOfAttraction;
 	bool hasReachedTarget;
 	float searchRadius;
 	public bool currentlySearching;
 	
 	Ray searchRay;
 	public RaycastHit searchRayHitResult;
+	
+	Patrolling RoamingRef;
 	
 	// Use this for initialization
 	void Awake()
@@ -27,6 +29,8 @@ public class AINavigation : MonoBehaviour
 		hasReachedTarget = true;
 		searchRadius = -1.0f;
 		currentlySearching = false;
+		
+		RoamingRef = GetComponent<Patrolling>();
 	}
 	
 	// Update is called once per frame
@@ -52,7 +56,7 @@ public class AINavigation : MonoBehaviour
 		
 		CheckIfCanSeeSoundSource(soundPosition, soundRadius, targetLayer);
 		
-		target = soundPosition + new Vector3(Random.Range(-searchRadius, searchRadius), soundPosition.y , Random.Range(-searchRadius, searchRadius));
+		target = (soundPosition + new Vector3(Random.Range(-searchRadius, searchRadius), soundPosition.y , Random.Range(-searchRadius, searchRadius)));
 		//Debug.Log(string.Format("Attraction: {0} Radius: {1} Target: {2}", levelOfAttraction, searchRadius, target));
 	}
 	
@@ -80,12 +84,13 @@ public class AINavigation : MonoBehaviour
 		}
 		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f)
 		{
-			agent.speed = 4.0f;
+			agent.speed = 2.0f;
 		}
 		//Due to the way Physics.OverlapSphere works sometimes the distance from enemy to sound source can be < 0, use for very, very, very faint sound detection by enemy
 		else if(levelOfAttraction <= 0.0f)
 		{
-			agent.speed = 0.0f;
+			//Go back to patrolling if no sound is heard
+			target = RoamingRef.Patrol(agent);
 		}
 	}
 	
