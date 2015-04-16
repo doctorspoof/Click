@@ -6,6 +6,7 @@ public class Patrolling : MonoBehaviour {
 	
 	List<Vector3> roamingPoints;
 	GameObject[] roamingPointsRef;
+	bool newTargetSet;
 	
 	int target;
 	
@@ -20,6 +21,7 @@ public class Patrolling : MonoBehaviour {
 			roamingPoints.Add(roamingPointsRef[i].transform.position);
 		}
 		
+		newTargetSet = false;
 		target = 0;
 	}
 
@@ -32,19 +34,23 @@ public class Patrolling : MonoBehaviour {
 	{
 		if(HasReachedTarget(roamingPoints[target]))
 		{
-			StartCoroutine(WaitBeforeNextTarget());
-			//target++;
+			if(!newTargetSet)
+			{
+				StartCoroutine(WaitBeforeNextTarget());
+				newTargetSet = true;
+			}
+		}
+		else
+		{
+			newTargetSet = false;
 		}
 		
-		if(target >= roamingPointsRef.Length)
-		{
-			target = 0;
-		}
+		
 		
 		//print (target);
 		//print (HasReachedTarget(roamingPoints[target]));
 		
-		return roamingPoints[target];	
+		return roamingPoints[target];
 	}
 	
 	bool HasReachedTarget(Vector3 currentTarget)
@@ -68,8 +74,12 @@ public class Patrolling : MonoBehaviour {
 			timer += Time.deltaTime;
 			yield return 0;
 		}
-		
 		print (target);
 		target++;
+		
+		if(target >= roamingPointsRef.Length)
+		{
+			target = 0;
+		}
 	}
 }
