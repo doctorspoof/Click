@@ -159,13 +159,8 @@ Transform:
   m_LocalScale: {x: 1.91366863, y: 1.50957406, z: 1.50957406}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 3
---- !u!1001 &363726200
-=======
   m_RootOrder: 6
 --- !u!1001 &408237653
->>>>>>> origin/master
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -202,13 +197,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400058, guid: 300284f3cb92a3c468951c18debc4b2a, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< HEAD
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300010, guid: 300284f3cb92a3c468951c18debc4b2a, type: 3}
-=======
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77f543b4d6278a148ac7920be7a8a7fd, type: 2}
   m_IsPrefabParent: 0
@@ -311,7 +302,6 @@ Prefab:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 4966fe5d2b3aa074c9f50d25bf8f0187, type: 3}
->>>>>>> origin/master
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d89e1dbfdd6c9424481c73ac57cfc837, type: 2}
