@@ -1,27 +1,22 @@
 fileFormatVersion: 2
-guid: 607de7a08a2606942b221155c2f1ad9f
-timeCreated: 1429106652
+guid: 4379acb17a69399498b14c0628952f54
+timeCreated: 1429110213
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Radio
-    100002: Room1
-    100004: Trap_Door
-    100006: //RootNode
-    400000: Radio
-    400002: Room1
-    400004: Trap_Door
-    400006: //RootNode
-    2300000: Radio
-    2300002: Room1
-    2300004: Trap_Door
-    3300000: Radio
-    3300002: Room1
-    3300004: Trap_Door
-    4300000: Radio
-    4300002: Room1
-    4300004: Trap_Door
+    100000: Door_Left
+    100002: Door_Right
+    100004: //RootNode
+    400000: Door_Left
+    400002: Door_Right
+    400004: //RootNode
+    2300000: Door_Left
+    2300002: Door_Right
+    3300000: Door_Left
+    3300002: Door_Right
+    4300000: Door_Left
+    4300002: Door_Right
     9500000: //RootNode
   materials:
     importMaterials: 1

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
@@ -35,31 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void CharacterMovement()
 	{				
-		bool bHasMoved = false;
-		
-		if (Input.GetKey(KeyCode.W))
-		{
-			transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
-			bHasMoved = true;
-		}
-		
-		if (Input.GetKey(KeyCode.S))
-		{
-			transform.Translate(-Vector3.forward * Time.deltaTime * movementSpeed);
-			bHasMoved = true;
-		}
-		
-		if (Input.GetKey(KeyCode.A))
-		{
-			transform.Translate(-Vector3.right * Time.deltaTime * movementSpeed);
-			bHasMoved = true;
-		}
-		
-		if (Input.GetKey(KeyCode.D))
-		{
-			transform.Translate(Vector3.right * Time.deltaTime * movementSpeed);
-			bHasMoved = true;
-		}
+		transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical"));
+	
+		transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal"));
 
 		transform.Rotate(Vector3.up, Time.deltaTime * Input.GetAxis("Mouse X") * turnSpeed);
 		

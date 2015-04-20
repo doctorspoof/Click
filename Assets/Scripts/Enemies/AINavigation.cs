@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AINavigation : MonoBehaviour
 {
@@ -16,10 +17,12 @@ public class AINavigation : MonoBehaviour
 	Ray searchRay;
 	public RaycastHit searchRayHitResult;
 	
-	Patrolling RoamingRef;
+	Patrolling PatrolRef;
 	
-	// Use this for initialization
-	void Awake()
+	float backToRoamingDelay;
+	bool goBack;
+
+	void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		sound = GetComponent<AudioSource>();
@@ -30,7 +33,10 @@ public class AINavigation : MonoBehaviour
 		searchRadius = -1.0f;
 		currentlySearching = false;
 		
-		RoamingRef = GetComponent<Patrolling>();
+		PatrolRef = GetComponent<Patrolling>();
+
+		backToRoamingDelay = 15.0f;
+		goBack = false;
 	}
 	
 	// Update is called once per frame
@@ -47,6 +53,9 @@ public class AINavigation : MonoBehaviour
 				sound.Play();
 			}
 		}
+
+		//print (target);
+		print (goBack);
 	}
 		
 	public void SetEnemySearchingParams(Vector3 soundPosition, float soundRadius, int targetLayer)
@@ -65,7 +74,9 @@ public class AINavigation : MonoBehaviour
 		if(agent.remainingDistance <= 0.5f)
 		{
 			hasReachedTarget = true;
-			levelOfAttraction = 0.0f;
+			//set level of attraction to half and partol the area for some time then set back to 0 and go back to original partolling points
+			levelOfAttraction = 0.4f;
+			PatrolRef.PatrollingPointsID = -1;
 		}
 		else
 		{
@@ -81,16 +92,21 @@ public class AINavigation : MonoBehaviour
 		if(levelOfAttraction >= 0.5f)
 		{
 			agent.speed = 4.0f;
+
 		}
 		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f)
 		{
 			agent.speed = 2.0f;
+			target = PatrolRef.Patrol(agent);
+			StartCoroutine(WaitBeforeGoingBackToOriginalPosition());
 		}
 		//Due to the way Physics.OverlapSphere works sometimes the distance from enemy to sound source can be < 0, use for very, very, very faint sound detection by enemy
-		else if(levelOfAttraction <= 0.0f)
+		else if(levelOfAttraction <= 0.0f && goBack)
 		{
 			//Go back to patrolling if no sound is heard
-			target = RoamingRef.Patrol(agent);
+			PatrolRef.PatrollingPointsID = PatrolRef.initialPatrollingPointsID;
+			target = PatrolRef.Patrol(agent);
+			goBack = false;
 		}
 	}
 	
@@ -111,5 +127,18 @@ public class AINavigation : MonoBehaviour
 			//print("Where are you!?!");
 			return false;
 		}		
+	}
+	
+	IEnumerator WaitBeforeGoingBackToOriginalPosition()
+	{
+		float timer = 0.0f;
+		while(timer < backToRoamingDelay)
+		{
+			timer += Time.deltaTime;
+			yield return 0;
+		}
+		//go back to original patrolling points
+		levelOfAttraction = 0.0f;
+		goBack = true;
 	}
 }

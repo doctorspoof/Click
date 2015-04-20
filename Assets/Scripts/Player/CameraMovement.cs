@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour
 		turnSpeed = GetComponentInParent<PlayerMovement>().turnSpeed;
 	}
 	
-	void Update()
+	void FixedUpdate()
 	{	
 		transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + (Time.deltaTime * Input.GetAxis("Mouse Y") * -turnSpeed),
 		                                      transform.rotation.eulerAngles.y,
