@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 				MoveSonarCounter = 0.0f;
 				
 				float SonarTime = FootstepSonarDistance / GlobalStaticVars.GlobalSonarSpeed;
-				CachedSonarManager.BeginNewSonarPulse(FootstepSonarLocations[FootstepSonarLocationID].position, SonarTime, FootstepSonarDistance);
+				//CachedSonarManager.BeginNewSonarPulse(FootstepSonarLocations[FootstepSonarLocationID].position, SonarTime, FootstepSonarDistance);
 				
 				++FootstepSonarLocationID;
 				if(FootstepSonarLocationID >= FootstepSonarLocations.Length)
@@ -65,5 +65,7 @@ public class PlayerMovement : MonoBehaviour
 				}
 			}
 		}
+		
+		CachedSonarManager.UpdatePlayerPosition(transform.position);
 	}
 }

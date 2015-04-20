@@ -12,6 +12,7 @@ public enum ClickState
 
 public class ClickControl : MonoBehaviour 
 {
+	[SerializeField]	AudioClip	ClickSound;
 	[SerializeField]  	float  	MaxSonarDistance;
 	[SerializeField]	float	MaxChargeTime;
 	[SerializeField]	float	MinChargeTime;
@@ -53,7 +54,7 @@ public class ClickControl : MonoBehaviour
 		{
 			CurrentClickState = ClickState.NoClick;	
 		}
-				
+
 		// Handle the actual event now
 		switch(CurrentClickState)
 		{
@@ -68,11 +69,14 @@ public class ClickControl : MonoBehaviour
 						CurrentChargeTime = MinChargeTime;
 					}
 				
-					float SonarDistance = (CurrentChargeTime / MaxChargeTime) * MaxSonarDistance;
+					float ChargePercent = CurrentChargeTime / MaxChargeTime;
+					float SonarDistance = ChargePercent * MaxSonarDistance;
 					float SonarTime = SonarDistance / GlobalStaticVars.GlobalSonarSpeed;
 					CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, SonarDistance);
 					
 					CurrentChargeTime = 0.0f;
+				
+					this.GetComponent<AudioSource>().PlayOneShot(ClickSound, ChargePercent);
 				}
 				break;
 			}

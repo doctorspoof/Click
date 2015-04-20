@@ -21,7 +21,7 @@ public class Scare_Blur : MonoBehaviour {
 		if( sManager.currentScarePercentage >= 20)
 		{
 			mBlur.enabled = true;
-			mBlur.blurAmount = 0.2f;
+			mBlur.blurAmount = 0.1f;
 		}
 		if( sManager.currentScarePercentage >= 40)
 		{
@@ -31,12 +31,12 @@ public class Scare_Blur : MonoBehaviour {
 		if( sManager.currentScarePercentage >= 60)
 		{
 			mBlur.enabled = true;
-			mBlur.blurAmount = 0.6f;
+			mBlur.blurAmount = 0.75f;
 		}
 		if( sManager.currentScarePercentage >= 80)
 		{
 			mBlur.enabled = true;
-			mBlur.blurAmount = 0.8f;
+			mBlur.blurAmount = 0.99f;
 		}
 	}
 }
