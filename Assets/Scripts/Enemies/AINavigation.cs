@@ -53,9 +53,6 @@ public class AINavigation : MonoBehaviour
 				sound.Play();
 			}
 		}
-
-		//print (target);
-		print (goBack);
 	}
 		
 	public void SetEnemySearchingParams(Vector3 soundPosition, float soundRadius, int targetLayer)

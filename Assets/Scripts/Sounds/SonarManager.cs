@@ -54,7 +54,6 @@ public class SonarManager : MonoBehaviour
 					}
 				}
 				
-				Debug.Log("Updated " + SonarUpdatableSceneObjects.Count + " objects with time increment " + TimeIncrement + " for slot #" + (i + 1));
 				CachedSonarTimes[i] += TimeIncrement;
 			}
 		}
@@ -62,8 +61,6 @@ public class SonarManager : MonoBehaviour
 	
 	public void BeginNewSonarPulse(Vector3 WorldPos, float SonarTimeLength, float SonarDistance)
 	{
-		Debug.Log("Received new sonar request.");
-		
 		float HighestSonarTime = 0.0f;
 		int LowestSonarID = -1;
 		
@@ -84,7 +81,6 @@ public class SonarManager : MonoBehaviour
 			}
 		}
 		
-		Debug.Log("Found appropriate sonar slot #" + LowestSonarID);
 		
 		// Access id with lowestsonarid
 		string idString = (LowestSonarID + 1).ToString();
@@ -97,9 +93,17 @@ public class SonarManager : MonoBehaviour
 			CachedSonarTimes[LowestSonarID] = 0.0f;
 		}
 		
-		Debug.Log("Updated " + SonarUpdatableSceneObjects.Count + " objects with sonar information.");
 		
 		// Now cache the required time in our local list
 		DesiredSonarTimes[LowestSonarID] = SonarTimeLength;
+	}
+	
+	public void UpdatePlayerPosition(Vector3 PlayerPos)
+	{
+		foreach(GameObject obj in SonarUpdatableSceneObjects)
+		{
+			Material ObjMat = obj.GetComponent<Renderer>().material;
+			ObjMat.SetVector("_PlayerPosition", PlayerPos);
+		}
 	}
 }
