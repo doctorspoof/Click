@@ -7,7 +7,7 @@ public class SonarManager : MonoBehaviour
 	List<GameObject> 	SonarUpdatableSceneObjects;
 	Material			CachedMaterialType;
 	
-	[SerializeField]	float[]		 		DesiredSonarTimes;
+	float[]		 		DesiredSonarTimes;
 	
 	[SerializeField]	int			UniqueSonarPulses;
 	

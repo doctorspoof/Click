@@ -245,10 +245,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 5465098, guid: 77f543b4d6278a148ac7920be7a8a7fd, type: 2}
-      propertyPath: m_Constraints
-      value: 84
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77f543b4d6278a148ac7920be7a8a7fd, type: 2}
   m_IsPrefabParent: 0
@@ -5492,6 +5488,46 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1595336081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1595336083}
+  - 114: {fileID: 1595336082}
+  m_Layer: 0
+  m_Name: SonarManager
+  m_TagString: SonarManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1595336082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1595336081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6925e49ea1d17d24796f0b97836528ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UniqueSonarPulses: 30
+--- !u!4 &1595336083
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1595336081}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.74869919, y: 4.94414139, z: 3.09179497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &1727680584
 GameObject:
   m_ObjectHideFlags: 0

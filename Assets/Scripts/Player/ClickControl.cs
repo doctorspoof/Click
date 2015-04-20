@@ -2,16 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum ClickState
+{
+	NoClick = 0,
+	FirstFrameDown = 1,
+	ClickHeld = 2,
+	FirstFrameUp = 3
+}
+
 public class ClickControl : MonoBehaviour 
 {
-	//List<GameObject> ObjectsToUpdate;
-	SonarManager CachedSonarManager;
-	
 	[SerializeField]  	float  	MaxSonarDistance;
 	[SerializeField]	float	MaxChargeTime;
 	
-	[SerializeField] float	CurrentChargeTime;
-	[SerializeField] bool	bIsChargingSonar;
+	SonarManager 	CachedSonarManager;
+	float			CurrentChargeTime;
+	bool			bIsChargingSonar;
+	
+	bool			bLastFrameClickWasDown;
 	
 	// Use this for initialization
 	void Start () 
@@ -22,34 +30,72 @@ public class ClickControl : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{		
-		if(Input.GetMouseButtonDown(0))
+		// Set up our vars to make it more accessible
+		float ClickInput = Input.GetAxisRaw("Fire1");
+		Debug.Log(string.Format("Click Input: {0}", ClickInput));
+		
+		ClickState CurrentClickState = ClickState.NoClick;
+		
+		if(ClickInput > 0 && !bLastFrameClickWasDown)
 		{
-			bIsChargingSonar = true;	
+			CurrentClickState = ClickState.FirstFrameDown;
+		}
+		else if(ClickInput < 1 && bLastFrameClickWasDown)
+		{
+			CurrentClickState = ClickState.FirstFrameUp;	
+		}
+		else if(ClickInput > 0 && bLastFrameClickWasDown)
+		{
+			CurrentClickState = ClickState.ClickHeld;	
+		}
+		else if(ClickInput < 1 && !bLastFrameClickWasDown)
+		{
+			CurrentClickState = ClickState.NoClick;	
 		}
 		
-		if(Input.GetMouseButtonUp(0))
+		
+		
+		Debug.Log(string.Format("ClickState: {0}", CurrentClickState.ToString()));
+		
+		// Handle the actual event now
+		switch(CurrentClickState)
 		{
-			bIsChargingSonar = false;
-			
-			if(CurrentChargeTime > 0.0f)
+			case ClickState.FirstFrameUp:
 			{
-				// Do a pulse here
-				float SonarDistance = (CurrentChargeTime / MaxChargeTime) * MaxSonarDistance;
-				float SonarTime = SonarDistance / GlobalStaticVars.GlobalSonarSpeed;
-				CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, SonarDistance);
+				bIsChargingSonar = false;
 				
-				CurrentChargeTime = 0.0f;
+				if(CurrentChargeTime > 0.0f)
+				{
+					float SonarDistance = (CurrentChargeTime / MaxChargeTime) * MaxSonarDistance;
+					float SonarTime = SonarDistance / GlobalStaticVars.GlobalSonarSpeed;
+					CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, SonarDistance);
+					
+					CurrentChargeTime = 0.0f;
+				}
+				break;
+			}
+			case ClickState.FirstFrameDown:
+			{
+				bIsChargingSonar = true;
+				break;	
+			}
+			case ClickState.ClickHeld:
+			{
+				CurrentChargeTime += Time.deltaTime;
+				
+				if(CurrentChargeTime > MaxChargeTime)
+				{
+					CurrentChargeTime = MaxChargeTime;	
+				}
+				break;
+			}
+			default:
+			{
+				break;
 			}
 		}
 		
-		if(bIsChargingSonar && Input.GetMouseButton(0))
-		{
-			CurrentChargeTime += Time.deltaTime;
-			
-			if(CurrentChargeTime > MaxChargeTime)
-			{
-				CurrentChargeTime = MaxChargeTime;	
-			}
-		}
+		// Set up our vars for next frame's input
+		bLastFrameClickWasDown = ClickInput > 0;
 	}
 }

@@ -34,14 +34,20 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	void CharacterMovement()
-	{				
-		transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical"));
+	{	
+		float MoveCounter = 0.0f;
+		
+		float VerticalMove = Input.GetAxis("Vertical");
+		transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * VerticalMove);
+		MoveCounter += Mathf.Abs(VerticalMove);
 	
-		transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal"));
+		float HorizontalMove = Input.GetAxis("Horizontal");
+		transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * HorizontalMove);
+		MoveCounter += Mathf.Abs(HorizontalMove);
 
 		transform.Rotate(Vector3.up, Time.deltaTime * Input.GetAxis("Mouse X") * turnSpeed);
 		
-		if(bHasMoved)
+		if(MoveCounter > 0.005f)
 		{
 			MoveSonarCounter += Time.deltaTime;
 			if(MoveSonarCounter >= TargetMoveSonarTime)
