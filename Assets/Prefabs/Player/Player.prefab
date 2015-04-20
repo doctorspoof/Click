@@ -499,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSonarDistance: 10
   MaxChargeTime: 1.25
+  MinChargeTime: .25
 --- !u!114 &11475802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,6 +517,7 @@ MonoBehaviour:
   - {fileID: 401402}
   - {fileID: 459242}
   TargetMoveSonarTime: .25
+  FootstepSonarDistance: 2.5
 --- !u!114 &11492562
 MonoBehaviour:
   m_ObjectHideFlags: 1

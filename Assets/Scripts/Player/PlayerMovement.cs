@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 	
 	[SerializeField]	Transform[]		FootstepSonarLocations;
 	[SerializeField]	float			TargetMoveSonarTime;
+	[SerializeField]	float			FootstepSonarDistance;
 	
 	void Awake()
 	{
@@ -54,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
 			{
 				MoveSonarCounter = 0.0f;
 				
-				CachedSonarManager.BeginNewSonarPulse(FootstepSonarLocations[FootstepSonarLocationID].position, 2.0f, 2.5f);
+				float SonarTime = FootstepSonarDistance / GlobalStaticVars.GlobalSonarSpeed;
+				CachedSonarManager.BeginNewSonarPulse(FootstepSonarLocations[FootstepSonarLocationID].position, SonarTime, FootstepSonarDistance);
 				
 				++FootstepSonarLocationID;
 				if(FootstepSonarLocationID >= FootstepSonarLocations.Length)

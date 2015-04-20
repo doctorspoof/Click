@@ -14,6 +14,7 @@ public class ClickControl : MonoBehaviour
 {
 	[SerializeField]  	float  	MaxSonarDistance;
 	[SerializeField]	float	MaxChargeTime;
+	[SerializeField]	float	MinChargeTime;
 	
 	SonarManager 	CachedSonarManager;
 	float			CurrentChargeTime;
@@ -66,6 +67,11 @@ public class ClickControl : MonoBehaviour
 				
 				if(CurrentChargeTime > 0.0f)
 				{
+					if(CurrentChargeTime < MinChargeTime)
+					{
+						CurrentChargeTime = MinChargeTime;
+					}
+				
 					float SonarDistance = (CurrentChargeTime / MaxChargeTime) * MaxSonarDistance;
 					float SonarTime = SonarDistance / GlobalStaticVars.GlobalSonarSpeed;
 					CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, SonarDistance);
