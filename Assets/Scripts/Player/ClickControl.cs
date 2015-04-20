@@ -22,7 +22,8 @@ public class ClickControl : MonoBehaviour
 	bool			bIsChargingSonar;
 	
 	bool			bLastFrameClickWasDown;
-	
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -53,7 +54,7 @@ public class ClickControl : MonoBehaviour
 		{
 			CurrentClickState = ClickState.NoClick;	
 		}
-		
+
 		// Handle the actual event now
 		switch(CurrentClickState)
 		{
