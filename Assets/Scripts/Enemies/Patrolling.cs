@@ -74,7 +74,7 @@ public class Patrolling : MonoBehaviour {
 			timer += Time.deltaTime;
 			yield return 0;
 		}
-		print (target);
+		//print (target);
 		target++;
 		
 		if(target >= roamingPointsRef.Length)

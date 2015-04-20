@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - RoamingPoint
+  - New Tag
+  - New Tag
+  - SonarManager
   layers:
   - Default
   - TransparentFX

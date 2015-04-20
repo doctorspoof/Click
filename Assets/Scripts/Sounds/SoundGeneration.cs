@@ -15,10 +15,10 @@ public class SoundGeneration : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Input.GetMouseButtonDown(0) && transform.tag == "Player")
-		{
-			Click();
-		}
+		//if(Input.GetMouseButtonDown(0) && transform.tag == "Player")
+		//{
+		//	Click();
+		//}
 	}
 	
 	void SetTargetForEnemiesInRadius(Vector3 soundSource, float soundRadius)
