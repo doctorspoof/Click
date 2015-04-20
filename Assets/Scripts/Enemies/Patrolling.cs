@@ -12,50 +12,31 @@ public class Patrolling : MonoBehaviour
 	int target;
 
 	public int PatrollingPointsID;
-	public int initialPatrollingPointsID;
+	public float waitingPeriod;
+
+	AINavigation NavAgent;
 	
 	void Start()
 	{
 		PatrolPoints = GameObject.FindGameObjectWithTag("PatrolPointManager").GetComponent<PatrolPointManager>().RequestPatrolPoints(PatrollingPointsID);
+		NavAgent = GetComponent<AINavigation>();
+	
+		waitingPeriod = 2.0f;
 
-		print(PatrolPoints.Count);
 		newTargetSet = false;
 		target = 0;
-
-		initialPatrollingPointsID = PatrollingPointsID;
 	}
 
 	void Update()
 	{
-		//print(PatrolPoints.Count);
-	}
-
-	public List<Vector3> GetPatrolRoute()
-	{
-		if(PatrollingPointsID == -1)
-		{
-			List<Vector3> localPoints = new List<Vector3>();
-			for(int i = 0; i < transform.childCount; i++)
-			{
-				if(transform.GetChild(i).tag == "PatrolPoint")
-				{
-					//chachehek this
-					localPoints.Add(new Vector3(transform.GetChild(i).position.x, transform.GetChild(i).position.y, transform.GetChild(i).position.z));
-				}
-			}
-			return localPoints;
-		}
-		else
-		{
-			return PatrolPoints;
-		}
+		
 	}
 	
-	public Vector3 Patrol(NavMeshAgent navAgent)
+	public Vector3 Patrol(List<Vector3> enemyRoute)
 	{
-		if(PatrolPoints.Count > 0)
+		if(enemyRoute.Count > 0)
 		{
-			if(HasReachedTarget(GetPatrolRoute()[target]))
+			if(NavAgent.hasReachedTarget)
 			{
 				if(!newTargetSet)
 				{
@@ -67,32 +48,18 @@ public class Patrolling : MonoBehaviour
 			{
 				newTargetSet = false;
 			}
-			//print (target);
-			//print (HasReachedTarget(roamingPoints[target]));
-			
-			return GetPatrolRoute()[target];
+
+			return enemyRoute[target];
 		}
-		//Don't roam when there is no roaming points
+		//Don't patrol when there is no patrol points
 		return transform.position;
 	}
-	
-	bool HasReachedTarget(Vector3 currentTarget)
-	{
-		if(Vector3.Distance(transform.position, currentTarget) < 1.0f)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
+		
 	IEnumerator WaitBeforeNextTarget()
 	{
 		float timer = 0.0f;
 		
-		while(timer < 1.0f)
+		while(timer < waitingPeriod)
 		{
 			timer += Time.deltaTime;
 			yield return 0;

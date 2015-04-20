@@ -21,7 +21,8 @@ public class ClickControl : MonoBehaviour
 	bool			bIsChargingSonar;
 	
 	bool			bLastFrameClickWasDown;
-	
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -33,7 +34,6 @@ public class ClickControl : MonoBehaviour
 	{		
 		// Set up our vars to make it more accessible
 		float ClickInput = Input.GetAxisRaw("Fire1");
-		Debug.Log(string.Format("Click Input: {0}", ClickInput));
 		
 		ClickState CurrentClickState = ClickState.NoClick;
 		
@@ -53,11 +53,7 @@ public class ClickControl : MonoBehaviour
 		{
 			CurrentClickState = ClickState.NoClick;	
 		}
-		
-		
-		
-		Debug.Log(string.Format("ClickState: {0}", CurrentClickState.ToString()));
-		
+				
 		// Handle the actual event now
 		switch(CurrentClickState)
 		{

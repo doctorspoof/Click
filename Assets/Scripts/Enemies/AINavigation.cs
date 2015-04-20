@@ -4,13 +4,20 @@ using System.Collections.Generic;
 
 public class AINavigation : MonoBehaviour
 {
+	[HideInInspector]
 	public Transform player;
+	[HideInInspector]
+	List<Vector3> patrolPath;
+	[HideInInspector]
+	List<GameObject> GMlocalPatrolPath;
+	List<Vector3> localPatrolPath;
+	bool arePointsCached;
 	[HideInInspector]
 	public Vector3 target;
 	NavMeshAgent agent;
 	AudioSource sound;
 	public float levelOfAttraction;
-	bool hasReachedTarget;
+	public bool hasReachedTarget;
 	float searchRadius;
 	public bool currentlySearching;
 	
@@ -18,8 +25,9 @@ public class AINavigation : MonoBehaviour
 	public RaycastHit searchRayHitResult;
 	
 	Patrolling PatrolRef;
+	PatrolPointManager PatrolManager;
 	
-	float backToRoamingDelay;
+	public float backToRoamingDelay;
 	bool goBack;
 
 	void Start()
@@ -32,8 +40,25 @@ public class AINavigation : MonoBehaviour
 		hasReachedTarget = true;
 		searchRadius = -1.0f;
 		currentlySearching = false;
-		
+
+		arePointsCached = false;
+
 		PatrolRef = GetComponent<Patrolling>();
+		PatrolManager = GameObject.FindGameObjectWithTag("PatrolPointManager").GetComponent<PatrolPointManager>();
+
+		patrolPath = PatrolManager.RequestPatrolPoints(PatrolRef.PatrollingPointsID);
+
+		GMlocalPatrolPath = new List<GameObject>();
+		localPatrolPath = new List<Vector3>();
+
+		//Cache local patrol points
+		for(int i = 0; i < transform.childCount; i++)
+		{
+			if(transform.GetChild(i).tag == "PatrolPoint")
+			{
+				GMlocalPatrolPath.Add(transform.GetChild(i).gameObject);
+			}
+		}
 
 		backToRoamingDelay = 15.0f;
 		goBack = false;
@@ -53,9 +78,6 @@ public class AINavigation : MonoBehaviour
 				sound.Play();
 			}
 		}
-
-		//print (target);
-		print (goBack);
 	}
 		
 	public void SetEnemySearchingParams(Vector3 soundPosition, float soundRadius, int targetLayer)
@@ -66,23 +88,32 @@ public class AINavigation : MonoBehaviour
 		CheckIfCanSeeSoundSource(soundPosition, soundRadius, targetLayer);
 		
 		target = (soundPosition + new Vector3(Random.Range(-searchRadius, searchRadius), soundPosition.y , Random.Range(-searchRadius, searchRadius)));
+		currentlySearching = true;
 		//Debug.Log(string.Format("Attraction: {0} Radius: {1} Target: {2}", levelOfAttraction, searchRadius, target));
 	}
 	
 	public bool HasReachedTarget()
 	{
-		if(agent.remainingDistance <= 0.5f)
+		if(agent.remainingDistance <= 1.0f)
 		{
+			//if points are not already cached, cache them and patrol
+			if(!arePointsCached && currentlySearching)
+			{
+				localPatrolPath.Clear();
+				for(int i = 0; i < transform.childCount; i++)
+				{
+					localPatrolPath.Add(GMlocalPatrolPath[i].transform.position);
+				}
+				arePointsCached = true;
+				levelOfAttraction = 0.4f;
+				currentlySearching = false;
+			}
 			hasReachedTarget = true;
-			//set level of attraction to half and partol the area for some time then set back to 0 and go back to original partolling points
-			levelOfAttraction = 0.4f;
-			PatrolRef.PatrollingPointsID = -1;
 		}
 		else
 		{
 			hasReachedTarget = false;
 		}
-		//print(hasReachedTarget);
 		return hasReachedTarget;
 	}
 	
@@ -94,19 +125,19 @@ public class AINavigation : MonoBehaviour
 			agent.speed = 4.0f;
 
 		}
-		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f)
+		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f && arePointsCached)
 		{
+			//cache local points positions
 			agent.speed = 2.0f;
-			target = PatrolRef.Patrol(agent);
+			target = PatrolRef.Patrol(localPatrolPath);
 			StartCoroutine(WaitBeforeGoingBackToOriginalPosition());
+			goBack = false;
 		}
 		//Due to the way Physics.OverlapSphere works sometimes the distance from enemy to sound source can be < 0, use for very, very, very faint sound detection by enemy
 		else if(levelOfAttraction <= 0.0f && goBack)
 		{
 			//Go back to patrolling if no sound is heard
-			PatrolRef.PatrollingPointsID = PatrolRef.initialPatrollingPointsID;
-			target = PatrolRef.Patrol(agent);
-			goBack = false;
+			target = PatrolRef.Patrol(patrolPath);
 		}
 	}
 	
@@ -140,5 +171,6 @@ public class AINavigation : MonoBehaviour
 		//go back to original patrolling points
 		levelOfAttraction = 0.0f;
 		goBack = true;
+		arePointsCached = false;
 	}
 }
