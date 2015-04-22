@@ -60,7 +60,7 @@ public class AINavigation : MonoBehaviour
 			}
 		}
 
-		backToRoamingDelay = 15.0f;
+		backToRoamingDelay = 5.0f;
 		goBack = false;
 	}
 	
@@ -78,6 +78,7 @@ public class AINavigation : MonoBehaviour
 				sound.Play();
 			}
 		}
+		//Debug.Log(GMlocalPatrolPath[0].name);
 	}
 		
 	public void SetEnemySearchingParams(Vector3 soundPosition, float soundRadius, int targetLayer)
@@ -100,7 +101,7 @@ public class AINavigation : MonoBehaviour
 			if(!arePointsCached && currentlySearching)
 			{
 				localPatrolPath.Clear();
-				for(int i = 0; i < transform.childCount; i++)
+				for(int i = 0; i < 3; i++)
 				{
 					localPatrolPath.Add(GMlocalPatrolPath[i].transform.position);
 				}
@@ -122,13 +123,13 @@ public class AINavigation : MonoBehaviour
 		//searchRadius = 1 - levelOfAttraction;
 		if(levelOfAttraction >= 0.5f)
 		{
-			agent.speed = 4.0f;
+			agent.speed = 3.0f;
 
 		}
 		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f && arePointsCached)
 		{
 			//cache local points positions
-			agent.speed = 2.0f;
+			//agent.speed = 1.5f;
 			target = PatrolRef.Patrol(localPatrolPath);
 			StartCoroutine(WaitBeforeGoingBackToOriginalPosition());
 			goBack = false;
@@ -136,6 +137,7 @@ public class AINavigation : MonoBehaviour
 		//Due to the way Physics.OverlapSphere works sometimes the distance from enemy to sound source can be < 0, use for very, very, very faint sound detection by enemy
 		else if(levelOfAttraction <= 0.0f && goBack)
 		{
+			//agent.speed = 0.75f;
 			//Go back to patrolling if no sound is heard
 			target = PatrolRef.Patrol(patrolPath);
 		}
