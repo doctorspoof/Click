@@ -5,6 +5,11 @@ public class SoundGeneration : MonoBehaviour
 {
 	//[HideInInspector]
 	private AudioSource audioComponent;
+	SonarManager		CachedSonarManager;
+	SoundAlertManager	CachedAlertManager;
+	
+	[SerializeField] float		DesiredCollisionDelay = 1.0f;
+	float						CollisionDelay;
 	
 	// Use this for initialization
 	void Awake ()
@@ -12,41 +17,33 @@ public class SoundGeneration : MonoBehaviour
 		audioComponent = GetComponent<AudioSource>();
 	}
 	
+	void Start()
+	{
+		CachedSonarManager = GameObject.FindGameObjectWithTag("SonarManager").GetComponent<SonarManager>();
+		CachedAlertManager = GameObject.FindGameObjectWithTag("SoundAlertManager").GetComponent<SoundAlertManager>();
+		
+		CollisionDelay = DesiredCollisionDelay;
+	}
+	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Input.GetMouseButtonDown(0) && transform.tag == "Player")
+		if(CollisionDelay < DesiredCollisionDelay)
 		{
-			Click();
-		}
-	}
-	
-	void SetTargetForEnemiesInRadius(Vector3 soundSource, float soundRadius)
-	{
-		Collider[] EnemiesInRadius = Physics.OverlapSphere(soundSource, soundRadius, 1 << LayerMask.NameToLayer("Enemy"));
-		if(EnemiesInRadius.Length > 0)
-		{
-			for(int e = 0; e < EnemiesInRadius.Length; e++)
-			{
-				EnemiesInRadius[e].GetComponent<AINavigation>().SetEnemySearchingParams(soundSource, soundRadius, gameObject.layer);
-			}
+			CollisionDelay += Time.deltaTime;
 		}
 	}
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		if(collision.contacts.Length > 0)
+		if(collision.contacts.Length > 0 && collision.relativeVelocity.magnitude > 1.5f && CollisionDelay >= DesiredCollisionDelay && audioComponent != null)
 		{
-			//soundPosition = collision.contacts[0].point;
+			CollisionDelay = 0.0f;
+			float SoundDistance = audioComponent.maxDistance;
+			CachedSonarManager.BeginNewSonarPulse(collision.contacts[0].point, SoundDistance / GlobalStaticVars.GlobalSonarSpeed, SoundDistance);
+			
 			audioComponent.Play();
-			SetTargetForEnemiesInRadius(transform.position, GetComponent<AudioSource>().maxDistance);
+			CachedAlertManager.SetTargetForEnemiesInRadius(transform.position, SoundDistance);
 		}
-	}
-
-	public void Click()
-	{
-		audioComponent.Play();
-		SetTargetForEnemiesInRadius(transform.position, gameObject.GetComponent<AudioSource>().maxDistance);
-
 	}
 }

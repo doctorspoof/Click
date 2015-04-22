@@ -17,17 +17,19 @@ public class ClickControl : MonoBehaviour
 	[SerializeField]	float	MaxChargeTime;
 	[SerializeField]	float	MinChargeTime;
 	
-	SonarManager 	CachedSonarManager;
-	float			CurrentChargeTime;
-	bool			bIsChargingSonar;
+	SoundAlertManager	CachedAlertManager;
+	SonarManager 		CachedSonarManager;
+	float				CurrentChargeTime;
+	bool				bIsChargingSonar;
 	
-	bool			bLastFrameClickWasDown;
+	bool				bLastFrameClickWasDown;
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		CachedSonarManager = GameObject.FindGameObjectWithTag("SonarManager").GetComponent<SonarManager>();
+		CachedAlertManager = GameObject.FindGameObjectWithTag("SoundAlertManager").GetComponent<SoundAlertManager>();
 	}
 	
 	// Update is called once per frame
@@ -73,7 +75,8 @@ public class ClickControl : MonoBehaviour
 					float SonarDistance = ChargePercent * MaxSonarDistance;
 					float SonarTime = SonarDistance / GlobalStaticVars.GlobalSonarSpeed;
 					CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, SonarDistance);
-					
+					CachedAlertManager.SetTargetForEnemiesInRadius(transform.position, SonarDistance);
+				
 					CurrentChargeTime = 0.0f;
 				
 					this.GetComponent<AudioSource>().PlayOneShot(ClickSound, ChargePercent);

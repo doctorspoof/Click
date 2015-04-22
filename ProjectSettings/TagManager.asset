@@ -8,8 +8,8 @@ TagManager:
   - PatrolPoint
   - PatrolPointManager
   - RoamingPoint
-  - New Tag
-  - New Tag
+  - TemporaryCamera
+  - SoundAlertManager
   - SonarManager
   layers:
   - Default
@@ -22,7 +22,7 @@ TagManager:
   - 
   - Enemy
   - Player
-  - 
+  - Objectives
   - 
   - 
   - 
