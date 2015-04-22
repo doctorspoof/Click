@@ -193,7 +193,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
 --- !u!114 &78200370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,10 +265,60 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 140052, guid: 9666262a36865c44fa976ca1a898b9c4, type: 2}
       propertyPath: m_Name
-      value: EnemyDetectionPoint
+      value: EnemyDetectionPoint1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9666262a36865c44fa976ca1a898b9c4, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &216590339 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+  m_PrefabInternal: {fileID: 313126554}
+--- !u!1001 &313126554
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 409141428}
+    m_Modifications:
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -8.52299976
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.15299988
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1.40600002
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437598, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 157784, guid: ecbae6773806dda4b9ea075768362956, type: 2}
+      propertyPath: m_Name
+      value: Creature
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ecbae6773806dda4b9ea075768362956, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &358735682
 GameObject:
@@ -342,7 +392,7 @@ Transform:
   m_LocalScale: {x: 1.91366863, y: 1.50957406, z: 1.50957406}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1001 &408237653
 Prefab:
   m_ObjectHideFlags: 0
@@ -380,7 +430,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 425950, guid: 77f543b4d6278a148ac7920be7a8a7fd, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 127822, guid: 77f543b4d6278a148ac7920be7a8a7fd, type: 2}
       propertyPath: m_IsActive
@@ -435,8 +485,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 858702261}
+  - {fileID: 216590339}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 1
 --- !u!1 &449068589
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +685,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 140052, guid: 9666262a36865c44fa976ca1a898b9c4, type: 2}
       propertyPath: m_Name
-      value: EnemyDetectionPoint 1
+      value: EnemyDetectionPoint2
       objectReference: {fileID: 0}
     - target: {fileID: 11445916, guid: 9666262a36865c44fa976ca1a898b9c4, type: 2}
       propertyPath: pointOrder
@@ -759,7 +810,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400306, guid: 61b23ffc06814414ca19da2218b1acfe, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2300604, guid: 61b23ffc06814414ca19da2218b1acfe, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5801,7 +5852,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 486944, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 170918, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
       propertyPath: m_Name
@@ -5970,7 +6021,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 486944, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 170918, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
       propertyPath: m_Name
@@ -6013,7 +6064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1181030000 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 607de7a08a2606942b221155c2f1ad9f, type: 3}
@@ -6229,7 +6280,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 486944, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 170918, guid: bdd4f9ee0e1a1614d8c677615f3805f6, type: 2}
       propertyPath: m_Name
@@ -6531,7 +6582,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1001 &1999082885
 Prefab:
   m_ObjectHideFlags: 0
@@ -6573,7 +6624,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 140052, guid: 9666262a36865c44fa976ca1a898b9c4, type: 2}
       propertyPath: m_Name
-      value: EnemyDetectionPoint 2
+      value: EnemyDetectionPoint3
       objectReference: {fileID: 0}
     - target: {fileID: 11445916, guid: 9666262a36865c44fa976ca1a898b9c4, type: 2}
       propertyPath: pointOrder

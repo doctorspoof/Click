@@ -14,12 +14,14 @@ public class Patrolling : MonoBehaviour
 	public int PatrollingPointsID;
 	public float waitingPeriod;
 
-	AINavigation NavAgent;
+	AINavigation AINav;
+	NavMeshAgent navAgent;
 	
 	void Start()
 	{
 		PatrolPoints = GameObject.FindGameObjectWithTag("PatrolPointManager").GetComponent<PatrolPointManager>().RequestPatrolPoints(PatrollingPointsID);
-		NavAgent = GetComponent<AINavigation>();
+		AINav = GetComponent<AINavigation>();
+		navAgent = GetComponent<NavMeshAgent>();
 	
 		waitingPeriod = 2.0f;
 
@@ -36,7 +38,7 @@ public class Patrolling : MonoBehaviour
 	{
 		if(enemyRoute.Count > 0)
 		{
-			if(NavAgent.hasReachedTarget)
+			if(AINav.hasReachedTarget)
 			{
 				if(!newTargetSet)
 				{
@@ -58,6 +60,7 @@ public class Patrolling : MonoBehaviour
 	IEnumerator WaitBeforeNextTarget()
 	{
 		float timer = 0.0f;
+		navAgent.speed = 0.0f;
 		
 		while(timer < waitingPeriod)
 		{
@@ -65,6 +68,7 @@ public class Patrolling : MonoBehaviour
 			yield return 0;
 		}
 		target++;
+		navAgent.speed = 1.0f;
 		
 		if(target >= PatrolPoints.Count)
 		{
