@@ -95,6 +95,8 @@
 		_SonarDistance3 ("SonarDistance28", Float) = 0
 		_SonarDistance4 ("SonarDistance29", Float) = 0
 		_SonarDistance5 ("SonarDistance30", Float) = 0
+		
+		_PlayerPosition ("PlayerPosition", Vector) = (0,0,0,0)
 	}
     SubShader 
     {
@@ -201,6 +203,8 @@
 			uniform float _SonarDistance28;
 			uniform float _SonarDistance29;
 			uniform float _SonarDistance30;
+			
+			uniform float4 _PlayerPosition;
 
             struct vertexInput 
             {
@@ -270,6 +274,17 @@
                 {
                 	outEffect += Effects[j];
                 }
+                
+                float DistanceToPlayerPos = distance(i.vertexPos.xyz, _PlayerPosition.xyz);
+                float PlayerAmbientDistance = 0.75f;
+                
+                float DistanceCoeff = PlayerAmbientDistance - DistanceToPlayerPos;
+                if(DistanceCoeff > 0.0f)
+                {
+                	float AmbientLightEffect = DistanceCoeff / PlayerAmbientDistance;
+                	outEffect += AmbientLightEffect;
+                }
+                
                 outEffect = clamp(outEffect, 0.0, 1.0);
                 
             	return float4(outEffect, outEffect, outEffect, 1.0);
