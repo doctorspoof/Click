@@ -7,6 +7,7 @@ public class TeleportVolume : MonoBehaviour
 	[SerializeField]	GameObject		PlayerToDisable;
 	[SerializeField]	GameObject		AnimationToPlay;
 	[SerializeField]	GameObject[]	ObjectsToDisableOnTeleport;
+	[SerializeField]	GameObject[]	ObjectsToEnableOnTeleport;
 	
 	Camera CachedPlayerCam;
 	
@@ -27,7 +28,12 @@ public class TeleportVolume : MonoBehaviour
 				
 				foreach(GameObject obj in ObjectsToDisableOnTeleport)
 				{
-					obj.SetActive(false);	
+					obj.SetActive(false);
+				}
+
+				foreach(GameObject obj in ObjectsToEnableOnTeleport)
+				{
+					obj.SetActive(true);
 				}
 				
 				StartCoroutine(AwaitAnimationComplete());
@@ -47,11 +53,16 @@ public class TeleportVolume : MonoBehaviour
 		{
 			timer += Time.deltaTime;
 			
-			if(timer > 0.4f && !bHasPulsed)
+			if(timer > 0.1f && !bHasPulsed)
 			{
 				bHasPulsed = true;
 				GameObject.FindGameObjectWithTag("SonarManager").GetComponent<SonarManager>().BeginNewSonarPulse(TargetLocation.transform.position, 12.5f / GlobalStaticVars.GlobalSonarSpeed, 12.5f);
 			}
+			if(!bHasPulsed)
+			{
+				AnimationToPlay.GetComponent<AudioSource>().PlayDelayed(0.75f);
+			}
+
 			yield return 0;
 		}
 		

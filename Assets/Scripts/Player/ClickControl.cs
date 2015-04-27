@@ -73,13 +73,13 @@ public class ClickControl : MonoBehaviour
 				
 					float ChargePercent = CurrentChargeTime / MaxChargeTime;
 					float SonarDistance = ChargePercent * MaxSonarDistance;
-					float SonarTime = SonarDistance / GlobalStaticVars.GlobalSonarSpeed;
-					CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, SonarDistance);
+					float SonarTime = Mathf.Clamp(SonarDistance, 3.0f, 999.0f) / GlobalStaticVars.GlobalSonarSpeed;
+					CachedSonarManager.BeginNewSonarPulse(transform.position + (Vector3.down * transform.localScale.y), SonarTime, Mathf.Clamp(SonarDistance, 3.0f, 999.0f));
 					CachedAlertManager.SetTargetForEnemiesInRadius(transform.position, SonarDistance);
 				
 					CurrentChargeTime = 0.0f;
 				
-					this.GetComponent<AudioSource>().PlayOneShot(ClickSound, ChargePercent);
+				this.GetComponent<AudioSource>().PlayOneShot(ClickSound, Mathf.Clamp(ChargePercent, 0.2f, 1.0f));
 				}
 				break;
 			}

@@ -11,6 +11,9 @@ public class RadioScript : MonoBehaviour
 	float 	NextRange;
 	float	TargetTime;
 	float	PulseCounter;
+
+	public AudioClip radioStatic;
+	bool staticSet;
 	
 	SonarManager CachedSonarManager;
 	
@@ -19,6 +22,8 @@ public class RadioScript : MonoBehaviour
 	{
 		ResetTargetTime();
 		CachedSonarManager = GameObject.FindGameObjectWithTag("SonarManager").GetComponent<SonarManager>();
+
+		staticSet = false;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +36,17 @@ public class RadioScript : MonoBehaviour
 			PulseCounter = 0.0f;
 			CachedSonarManager.BeginNewSonarPulse(transform.position, NextRange / GlobalStaticVars.GlobalSonarSpeed, NextRange);
 			ResetTargetTime();
+		}
+
+		if(!GetComponent<AudioSource>().isPlaying && !staticSet)
+		{
+			GetComponent<AudioSource>().clip = radioStatic;
+			staticSet = true;
+		}
+
+		if(!GetComponent<AudioSource>().isPlaying)
+		{
+			GetComponent<AudioSource>().Play();
 		}
 	}
 	

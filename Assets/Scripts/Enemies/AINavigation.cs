@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,6 +20,9 @@ public class AINavigation : MonoBehaviour
 	public bool hasReachedTarget;
 	float searchRadius;
 	public bool currentlySearching;
+	public AudioClip[] EnemySounds;
+
+	public SonarManager CachedSonarManager;
 	
 	Ray searchRay;
 	public RaycastHit searchRayHitResult;
@@ -29,6 +32,24 @@ public class AINavigation : MonoBehaviour
 	
 	public float backToRoamingDelay;
 	bool goBack;
+
+	public enum enemyState
+	{
+		Idle = 0,
+		Patrolling = 1,
+		Chasing = 2,
+		Alert = 4
+		//Kill = 3
+	};
+
+	public bool idleSet;
+	public bool patrollingSet;
+	public bool chasingSet;
+	public bool alertSet;
+
+	bool fuckingdoit;
+
+	public enemyState currentState;
 
 	void Start()
 	{
@@ -42,6 +63,8 @@ public class AINavigation : MonoBehaviour
 		currentlySearching = false;
 
 		arePointsCached = false;
+
+
 
 		PatrolRef = GetComponent<Patrolling>();
 		PatrolManager = GameObject.FindGameObjectWithTag("PatrolPointManager").GetComponent<PatrolPointManager>();
@@ -61,13 +84,28 @@ public class AINavigation : MonoBehaviour
 		}
 
 		backToRoamingDelay = 5.0f;
-		goBack = false;
+		goBack = true;
+
+		idleSet = false;
+		patrollingSet = false;
+		chasingSet = false;
+		alertSet = false;
 	}
-	
+
+	public void Nable()
+	{
+		print ("lol");
+		currentState = enemyState.Idle;
+		target = transform.position;
+	}
+
 	// Update is called once per frame
 	void Update()
 	{
-		AttractionBehaviour();
+		//print(currentState);
+		//print(agent.remainingDistance);
+		SetStates();
+		EnemyBehaviour();
 		HasReachedTarget();
 		agent.SetDestination(target);
 		
@@ -75,16 +113,18 @@ public class AINavigation : MonoBehaviour
 		{
 			if(!sound.isPlaying)
 			{
-				sound.Play();
+				//sound.Play();
 			}
 		}
-		//Debug.Log(GMlocalPatrolPath[0].name);
+
+		//print (searchRadius);
+
 	}
 		
 	public void SetEnemySearchingParams(Vector3 soundPosition, float soundRadius, int targetLayer)
 	{
 		levelOfAttraction = 1 - ((Vector3.Distance(transform.position, soundPosition)) / soundRadius);
-		searchRadius = soundRadius - (soundRadius / Vector3.Distance(transform.position, soundPosition));
+		searchRadius = 0.5f;//soundRadius - (soundRadius / Vector3.Distance(transform.position, soundPosition * 0.05f));
 		
 		CheckIfCanSeeSoundSource(soundPosition, soundRadius, targetLayer);
 		
@@ -106,7 +146,7 @@ public class AINavigation : MonoBehaviour
 					localPatrolPath.Add(GMlocalPatrolPath[i].transform.position);
 				}
 				arePointsCached = true;
-				levelOfAttraction = 0.4f;
+				//currentState = enemyState.Alert;
 				currentlySearching = false;
 			}
 			hasReachedTarget = true;
@@ -114,32 +154,102 @@ public class AINavigation : MonoBehaviour
 		else
 		{
 			hasReachedTarget = false;
+			//currentState = enemyState.Patrolling;
+			//patrollingSet = false;
 		}
 		return hasReachedTarget;
 	}
 	
-	public void AttractionBehaviour()
+	public void SetStates()
 	{
 		//searchRadius = 1 - levelOfAttraction;
-		if(levelOfAttraction >= 0.5f)
-		{
-			agent.speed = 3.0f;
-
-		}
-		else if(levelOfAttraction <= 0.5f && levelOfAttraction > 0.0f && arePointsCached)
+		if(levelOfAttraction >= 0.1f && hasReachedTarget)// && arePointsCached)
 		{
 			//cache local points positions
-			//agent.speed = 1.5f;
-			target = PatrolRef.Patrol(localPatrolPath);
-			StartCoroutine(WaitBeforeGoingBackToOriginalPosition());
-			goBack = false;
+			currentState = enemyState.Alert;
+			//print ("Alertings");
+			//goBack = false;
+		}
+		else if (levelOfAttraction >= 0.1f && !hasReachedTarget)
+		{
+			currentState = enemyState.Chasing;
+			//print ("Chasings");
 		}
 		//Due to the way Physics.OverlapSphere works sometimes the distance from enemy to sound source can be < 0, use for very, very, very faint sound detection by enemy
-		else if(levelOfAttraction <= 0.0f && goBack)
+		else if(hasReachedTarget)
 		{
-			//agent.speed = 0.75f;
-			//Go back to patrolling if no sound is heard
-			target = PatrolRef.Patrol(patrolPath);
+			currentState = enemyState.Idle;
+			//print ("Idlings");
+		}
+		/*else if(levelOfAttraction < 0.1f && hasReachedTarget && currentState == enemyState.Patrolling)
+		{
+
+		}*/
+	}
+
+	public void EnemyBehaviour()
+	{
+		switch(currentState)
+		{
+			case enemyState.Alert:
+				if(!alertSet)
+				{
+					agent.speed = 1.5f;
+					target = PatrolRef.Patrol(localPatrolPath);
+					StartCoroutine(WaitBeforeGoingBackToOriginalPosition());
+					
+					idleSet = false;
+					patrollingSet = false;
+					chasingSet = false;
+					
+					Debug.LogWarning("Im Alerted");
+					alertSet = true;
+				}
+				break;
+			case enemyState.Idle:
+				if(!idleSet)
+				{
+					agent.speed = 0.0f;
+					GetComponent<AudioSource>().PlayOneShot(EnemySounds[0], 1.0f);
+					CachedSonarManager.BeginNewSonarPulse(transform.position, 4.44f / GlobalStaticVars.GlobalSonarSpeed, 4.44f);
+					target = PatrolRef.Patrol(patrolPath);
+					
+				print ("Im Idle");
+					patrollingSet = false;
+					chasingSet = false;
+					alertSet = false;
+
+					idleSet = true;
+				}
+				break;
+			case enemyState.Patrolling:
+				if(!patrollingSet)
+				{
+					agent.speed = 1.0f;
+
+					idleSet = false;
+					chasingSet = false;
+					alertSet = false;
+					
+				print ("Im Patrolling");
+					patrollingSet = true;
+				}
+				break;
+			case enemyState.Chasing:
+				if(!chasingSet)
+				{
+					agent.speed = 2.5f;
+					GetComponent<AudioSource>().PlayOneShot(EnemySounds[1], 1.0f);
+					CachedSonarManager.BeginNewSonarPulse(transform.position, 7.0f / GlobalStaticVars.GlobalSonarSpeed, 7.0f);
+
+					idleSet = false;
+					patrollingSet = false;
+					alertSet = false;
+
+				print ("Im Chasing");
+					chasingSet = true;
+				}
+				break;
 		}
 	}
 	
@@ -152,12 +262,12 @@ public class AINavigation : MonoBehaviour
 		
 		if(Physics.Raycast(searchRay, out searchRayHitResult, seachRadius, 1 << targetLayer))
 		{
-			//print("Found you, Mofo!!!");
+			print("Found you, Mofo!!!");
 			return true;
 		}
 		else
 		{
-			//print("Where are you!?!");
+			print("Where are you!?!");
 			return false;
 		}		
 	}
@@ -171,8 +281,10 @@ public class AINavigation : MonoBehaviour
 			yield return 0;
 		}
 		//go back to original patrolling points
-		levelOfAttraction = 0.0f;
-		goBack = true;
+		currentState = enemyState.Patrolling;
+
+		//levelOfAttraction = 0.0f;
+		//idleSet = false;
 		arePointsCached = false;
 	}
 }

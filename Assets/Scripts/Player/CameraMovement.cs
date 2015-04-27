@@ -22,5 +22,6 @@ public class CameraMovement : MonoBehaviour
 		transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + (Time.deltaTime * Input.GetAxis("Mouse Y") * -turnSpeed),
 		                                      transform.rotation.eulerAngles.y,
 		                                      transform.rotation.eulerAngles.z);
+		print ("lollllll");
 	}
 }

@@ -16,6 +16,8 @@ public class Patrolling : MonoBehaviour
 
 	AINavigation AINav;
 	NavMeshAgent navAgent;
+
+	List<Vector3> currentRoute;
 	
 	void Start()
 	{
@@ -31,44 +33,33 @@ public class Patrolling : MonoBehaviour
 
 	void Update()
 	{
-		
+		newTargetSet = false;
 	}
 	
 	public Vector3 Patrol(List<Vector3> enemyRoute)
 	{
-		if(enemyRoute.Count > 0)
-		{
-			if(AINav.hasReachedTarget)
-			{
-				if(!newTargetSet)
-				{
-					StartCoroutine(WaitBeforeNextTarget());
-					newTargetSet = true;
-				}
-			}
-			else
-			{
-				newTargetSet = false;
-			}
+		StartCoroutine(WaitBeforeNextTarget());
+		//currentRoute = enemyRoute;
+		print ("Idle - awaiting next target");
 
-			return enemyRoute[target];
-		}
-		//Don't patrol when there is no patrol points
-		return transform.position;
+		return enemyRoute[target];
 	}
 		
-	IEnumerator WaitBeforeNextTarget()
+	public IEnumerator WaitBeforeNextTarget()
 	{
 		float timer = 0.0f;
-		navAgent.speed = 0.0f;
-		
+		print("timer started");
+
 		while(timer < waitingPeriod)
 		{
+			//AINav.currentState = AINavigation.enemyState.Idle;
 			timer += Time.deltaTime;
 			yield return 0;
 		}
+		print("new target set");
 		target++;
-		navAgent.speed = 1.0f;
+		AINav.currentState = AINavigation.enemyState.Patrolling;
+		//AINav.patrollingSet = false;
 		
 		if(target >= PatrolPoints.Count)
 		{

@@ -11,6 +11,7 @@ TagManager:
   - TemporaryCamera
   - SoundAlertManager
   - SonarManager
+  - KillVolume
   layers:
   - Default
   - TransparentFX

@@ -46,4 +46,17 @@ public class SoundGeneration : MonoBehaviour
 			CachedAlertManager.SetTargetForEnemiesInRadius(transform.position, SoundDistance);
 		}
 	}
+
+	void OnTriggerEnter(Collider collision)
+	{
+		if(CollisionDelay >= DesiredCollisionDelay && audioComponent != null)
+		{
+			CollisionDelay = 0.0f;
+			float SoundDistance = audioComponent.maxDistance;
+			CachedSonarManager.BeginNewSonarPulse(collision.transform.position, SoundDistance / GlobalStaticVars.GlobalSonarSpeed, SoundDistance);
+			
+			audioComponent.Play();
+			CachedAlertManager.SetTargetForEnemiesInRadius(transform.position, SoundDistance);
+		}
+	}
 }
